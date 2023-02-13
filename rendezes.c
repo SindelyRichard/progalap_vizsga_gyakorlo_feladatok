@@ -7,10 +7,13 @@ void maximum_kivalasztas_rendezes(int *tomb, int meret);
 void minimum_kivalasztas_rendezes(int *tomb, int meret);
 void beszuro_rendezes(int *tomb,int meret);
 void szamlalo_rendezes(int *tomb,int *index,int meret);
+void beolvas(int *tomb,int meret);
 
 int main()
 {
-    int tomb[] = {3,8,2,9,1,45,65,99};
+
+    int tomb[8];// = {3,8,2,9,1,45,65,99};
+    beolvas(tomb,8);
     int index[]={1,1,1,1,1,1,1,1};
     int meret = sizeof(tomb)/sizeof(int);
     buborek_rendezes(tomb,meret);
@@ -28,21 +31,22 @@ int main()
 }
 void buborek_rendezes(int *tomb,int meret)
 {
-    int i,j;
-    for (int i = meret-1; 0<i; --i)
+    int i,j,temp;
+    for (i = meret-1; 0<i; --i)
     {
-        for (int j = 0; j < i; ++j)
+        for (j = 0; j < i; j++)
         {
             if(tomb[j]>tomb[j+1])
             {
-            int temp = tomb[j];
-            tomb[j] = tomb[j+1];
-            tomb[j+1]=temp;
+               temp=tomb[j];
+               tomb[j] = tomb[j+1];
+               tomb[j+1]=temp;
             }
         }
         
     }
-    return ;
+    
+    
 }
 void kiir(int *tomb,int meret)
 {
@@ -127,4 +131,31 @@ void szamlalo_rendezes(int *tomb,int *index,int meret)
     }
     
 
+}
+void beolvas(int *tomb,int meret)
+{
+    
+    FILE *fp;
+    char ch;
+    int db = 0;
+    int i = 0;
+    fp = fopen("ertek.txt","r");
+    if(!fp)
+    {
+        printf("\nHiba tortent a file megnyitasa kozben!");
+    }
+    else
+    {
+        while((ch = fgetc(fp)) != EOF) { if(ch == '\n') db++; }
+        if (db==0) { printf("\nFile is empty ...\n"); return ; }
+        rewind(fp);
+    
+        while(fscanf(fp, "%d", &tomb[i])!=EOF)
+        {
+            i++;
+        }
+    
+ } 
+    
+    fclose(fp); 
 }
