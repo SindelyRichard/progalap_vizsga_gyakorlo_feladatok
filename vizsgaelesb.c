@@ -7,6 +7,7 @@ void feltolt(int *tomb,int size);
 void rendezes(int *tomb, int size);
 void kiir(int *tomb, double *tomb2, int size);
 double tti(double magas, int suly);
+char *ttiErtek(double tti);
 
 int main(){
     double magassag[] = {1.8,1.4,1.58,1.67,1.9,1.86};
@@ -17,7 +18,7 @@ int main(){
     kiir(testsuly,magassag,size);
     for (int i = 0; i < size; i++)
     {
-        printf("%.2lf\n",tti(magassag[i],testsuly[i]));
+        printf("\n%.2lf",tti(magassag[i],testsuly[i]));
     }
     char *testMegn[3] = {"sovany", "normal","tulsulyos"};
     printf("Irja be (sovany,normal,tulsulyos)\n");
@@ -31,19 +32,26 @@ int main(){
             switch (i)
             {
             case 0:
-                printf("\n0-60kg");
+                printf("\nTTI: 0-18.9");
                 break;
             case 1:
-                 printf("\n70-85kg");
+                 printf("\nTTI: 18.5-24.99");
                  break;
             case 2:
-                  printf("\n85-90kg");
+                  printf("\nTTI: 25-40");
             default:
                 break;
             }
         }
     }
     free(s);
+    printf("\nIrja be az on magassagat (meterbe) es az on testsulyat! (magassag,testsuly)");
+    double beMagassag;
+    int beSuly;
+    scanf("%lf,%d",&beMagassag,&beSuly);
+    double ttiValt = tti(beMagassag,beSuly);
+    printf("\nAz on testtomegindexe: %.2lf",ttiValt);
+    printf("\nKategoria: %s",ttiErtek(ttiValt));
     return 0;
 }
 void feltolt(int *tomb, int size)
@@ -79,7 +87,7 @@ void kiir(int *tomb, double *tomb2, int size)
 {
    for (int i = 0; i < size; i++)
    {
-      printf("%.2lf\t%d\n",tomb2[i],tomb[i]);
+      printf("\n%.2lf\t%d",tomb2[i],tomb[i]);
    }
    
 }
@@ -87,4 +95,19 @@ double tti(double magas, int suly)
 {
     double eredmeny = suly/(magas*magas);
     return eredmeny;
+}
+char *ttiErtek(double tti)
+{
+    if(tti>0 && tti<18.5)
+    {
+        return "Sovany";
+    }
+    if(tti>18.49 && tti<25)
+    {
+        return "Normal";
+    }
+    if(tti>24.99)
+    {
+        return "tulsulyos";
+    }
 }
