@@ -8,6 +8,7 @@ void rendezes(int *tomb, int size);
 void kiir(int *tomb, double *tomb2, int size);
 double tti(double magas, int suly);
 char *ttiErtek(double tti);
+void elvalaszt();
 
 int main(){
     double magassag[] = {1.8,1.4,1.58,1.67,1.9,1.86};
@@ -16,12 +17,13 @@ int main(){
     feltolt(testsuly,size);
     rendezes(testsuly,size);
     kiir(testsuly,magassag,size);
+    elvalaszt();
     for (int i = 0; i < size; i++)
     {
         printf("\n%.2lf",tti(magassag[i],testsuly[i]));
     }
     char *testMegn[3] = {"sovany", "normal","tulsulyos"};
-    printf("Irja be (sovany,normal,tulsulyos)\n");
+    printf("\nIrja be (sovany,normal,tulsulyos)");
     char *s;
     s = (char*)malloc(2*sizeof(char));
     scanf("%s",s);
@@ -110,4 +112,9 @@ char *ttiErtek(double tti)
     {
         return "tulsulyos";
     }
+}
+void elvalaszt()
+{
+    printf("\n");
+    return ;
 }
