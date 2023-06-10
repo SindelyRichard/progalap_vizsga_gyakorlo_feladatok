@@ -17,7 +17,8 @@ void pontHelyezes(int *helyezes,int *pont,int size);
 void struktFeltolt(char **nevek,int *helyezes,int *pont,VERSENYZOK *vs,int size);
 void struktKiir(VERSENYZOK *vs,int size);
 void struktBeOlvasas(VERSENYZOK *beOlvas,int size,char *nev);
-
+void fileIras(VERSENYZOK *tomb,int size);
+void fileBeolvas(int size);
 
 int main()
 {
@@ -42,6 +43,8 @@ int main()
     char *nev;
     struktBeOlvasas(beVs,meret,nev);
     struktKiir(beVs,meret);
+    fileIras(beVs,meret);
+    fileBeolvas(meret);
     free(nev);                                                   //memóriaterület felszabadítása
     return 0;
 }
@@ -182,4 +185,36 @@ void struktBeOlvasas(VERSENYZOK *beOlvas,int size,char *nev)
     }
     
     return ;
+}
+void fileIras(VERSENYZOK *tomb,int size)
+{
+    FILE *fptr;
+    fptr=fopen("versenyzok2.txt","w");
+    if(fptr==NULL)
+    {
+            printf("\nError!");
+            exit(1);
+    }
+    for (int i = 0; i < size; i++)
+    {
+        fprintf(fptr,"\n%s  %d  %d",tomb[i].nev,tomb[i].helyezes,tomb[i].pontszam);
+    }
+    fclose(fptr);
+    return ;
+}
+void fileBeolvas(int size)
+{
+    FILE *fptr;
+    char ch;
+    if((fptr=fopen("versenyzok2.txt","r"))==NULL)
+    {
+       printf("\nError!");
+       exit(1);
+    }
+    do {
+        ch = fgetc(fptr);
+        printf("%c", ch);
+ 
+        
+    } while (ch != EOF);
 }
