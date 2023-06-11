@@ -19,6 +19,7 @@ void struktKiir(VERSENYZOK *vs,int size);
 void struktBeOlvasas(VERSENYZOK *beOlvas,int size,char *nev);
 void fileIras(VERSENYZOK *tomb,int size);
 void fileBeolvas(int size);
+void fileBeStrukt(VERSENYZOK *tomb,int size,char *nevTemp);
 
 int main()
 {
@@ -43,9 +44,16 @@ int main()
     char *nev;
     struktBeOlvasas(beVs,meret,nev);
     struktKiir(beVs,meret);
+    elvalaszt();
     fileIras(beVs,meret);
     fileBeolvas(meret);
+    VERSENYZOK beStrukt[5];
+    char* temp;
+    fileBeStrukt(beStrukt,meret,temp);
+    elvalaszt();
+    struktKiir(beStrukt,meret);
     free(nev);                                                   //memóriaterület felszabadítása
+    free(temp);
     return 0;
 }
 void feltolt(int *tomb,int size)
@@ -105,7 +113,7 @@ void rendez(char **nevek,int *helyezes,int size)
 }
 void elvalaszt()
 {
-    printf("\n--------------");
+    printf("\n--------------\n");
 }
 void pontHelyezes(int *helyezes,int *pont,int size)
 {
@@ -197,7 +205,7 @@ void fileIras(VERSENYZOK *tomb,int size)
     }
     for (int i = 0; i < size; i++)
     {
-        fprintf(fptr,"\n%s  %d  %d",tomb[i].nev,tomb[i].helyezes,tomb[i].pontszam);
+        fprintf(fptr,"%s\t%d\t%d\n",tomb[i].nev,tomb[i].helyezes,tomb[i].pontszam);
     }
     fclose(fptr);
     return ;
@@ -217,4 +225,44 @@ void fileBeolvas(int size)
  
         
     } while (ch != EOF);
+    fclose(fptr);
+    return ;
+}
+void fileBeStrukt(VERSENYZOK *tomb,int size,char *nevTemp)
+{
+    FILE *fptr;
+    char ch;
+    int j=0;
+    int i=0;
+    int helyezesek;
+    int pontsz;
+    fptr=fopen("versenyzok2.txt","r");
+    if(fptr==NULL)
+    {
+        printf("\nError");
+        exit(1);
+    }
+    else
+    {
+        while(j<size)
+        {
+            nevTemp=(char*)malloc(20*sizeof(char));
+            if((fscanf(fptr,"%[^\t]%d\t%d",nevTemp,&helyezesek,&pontsz))!=EOF)
+            {
+            tomb[j].nev=nevTemp;
+            tomb[j].helyezes=helyezesek;
+            tomb[j].pontszam=pontsz;
+            helyezesek=0;
+            pontsz=0;
+            j++;
+            
+            }
+            else
+            {
+                break;
+            }
+        }
+        fclose(fptr);
+    }
+    return;
 }
