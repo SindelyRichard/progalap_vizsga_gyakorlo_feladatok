@@ -58,13 +58,13 @@ void kiir(int *tomb,int meret)
 }
 void maximum_kivalasztas_rendezes(int *tomb, int meret)
 {
-    int i,j,min,maxindex;
-    for (int i = 0; i < meret-1; i++)
+    int i,j,maxindex;
+    for (int i = 0; i < meret; i++)
     {
         maxindex = i;
         
         
-        for (int j = i+1; j < meret-1; j++)
+        for (int j = i+1; j < meret; j++)
         {
             if(tomb[j]>tomb[maxindex])
             {
@@ -79,13 +79,13 @@ void maximum_kivalasztas_rendezes(int *tomb, int meret)
 }
 void minimum_kivalasztas_rendezes(int *tomb, int meret)
 {
-    int i,j,min,minindex;
-    for (int i = 0; i < meret-1; i++)
+    int i,j,minindex;
+    for (int i = 0; i < meret; i++)
     {
         minindex = i;
         
         
-        for (int j = i+1; j < meret-1; j++)
+        for (int j = i+1; j < meret; j++)
         {
             if(tomb[j]<tomb[minindex])
             {
